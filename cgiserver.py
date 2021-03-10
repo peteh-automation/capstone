@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 """
 As it's name suggests, this script runs a mini CGI server
