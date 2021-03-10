@@ -25,6 +25,8 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pwd
+            ls ~/work
             cd ~/work/capstone
             make install
             # Install hadolint
