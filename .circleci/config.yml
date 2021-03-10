@@ -25,9 +25,6 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pwd
-            ls ~/work
-            cd ~/work/capstone
             make install
             # Install hadolint
             #wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
@@ -42,6 +39,5 @@ jobs:
           name: run lint
           command: |
             . venv/bin/activate
-            cd ~/work/capstone
             make lint 
 
