@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo -e "Content-Type: text/plain\n\n"
-echo "Network info"
-echo "$(netstat -nr)"
+echo "user details: $(id)
+

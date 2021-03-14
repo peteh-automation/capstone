@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo -e "Content-Type: text/plain\n\n"
-echo "$(host $(uname -n))"
+echo "host IP: $(host $(uname -n))"
