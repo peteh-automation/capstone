@@ -1,0 +1,28 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: capstone-eksctl
+  # region: ${AWS_REGION}
+  region: eu-west-2
+  version: "1.17"
+
+# availabilityZones: ["${AZS[0]}", "${AZS[1]}", "${AZS[2]}"]
+availabilityZones: ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+
+managedNodeGroups:
+- name: nodegroup
+  desiredCapacity: 3
+  instanceType: t2.micro
+  ssh:
+    enableSsm: true
+
+# To enable all of the control plane logs, uncomment below:
+# cloudWatch:
+#  clusterLogging:
+#    enableTypes: ["*"]
+
+secretsEncryption:
+  # keyARN: ${MASTER_ARN}
+  keyARN: arn:aws:kms:eu-west-2:509331676020:key/cdcdf0d9-0306-4a9a-893e-b2812e5a9320
