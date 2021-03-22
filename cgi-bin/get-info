@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo -e "Content-Type: text/plain\n\n"
+echo "Script version: 1" 
+echo "Host is: $(uname -n)"
+echo "host IP: $(ip -4 -o address | grep eth0 | awk '{print $4}')"
+echo "Runtime User: $(id)"
+echo "Uptime: $(uptime -p)"
