@@ -1,7 +1,5 @@
 NAME   := peterheybrock/capstone
-TAG    := $$(git log -1 --pretty=%h)
-IMG    := ${NAME}:${TAG}
-LATEST := ${NAME}:latest
+IMG    := ${NAME}:latest
 
 install:
 	pip install --upgrade pip &&\
@@ -13,12 +11,11 @@ lint:
 build-image:
 	@echo "Building ${IMG}" 
 	docker build -t ${IMG} .
-	docker tag ${IMG} ${LATEST}
 
 push-image:
-	@echo "Pushing ${NAME}"
+	@echo "Pushing ${IMG} to repo"
 	@echo "${DOCKER_PASS}" | docker login --username ${DOCKER_USER} --password-stdin
-	docker push ${NAME}
+	docker push ${IMG}
  
 
 
