@@ -1,5 +1,5 @@
 NAME   := peterheybrock/capstone
-TAG    := $(git log -1 --pretty=%h)
+TAG    := $$(git log -1 --pretty=%h)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest
 
@@ -11,11 +11,14 @@ lint:
 	pylint cgiserver.py
 
 build:
+	@echo "Building ${IMG}" 
 	docker build -t ${IMG} .
 	docker tag ${IMG} ${LATEST}
- 
+
 push:
+	@echo "Pushing ${NAME}"
 	docker push ${NAME}
  
 login:
-	docker log -u ${DOCKER_USER} -p ${DOCKER_PASS}
+	@echo "${DOCKER_PASS}" | docker login --username ${DOCKER_USER} --password-stdin
+
