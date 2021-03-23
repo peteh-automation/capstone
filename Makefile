@@ -10,15 +10,15 @@ install:
 lint:
 	pylint cgiserver.py
 
-build:
+build-image:
 	@echo "Building ${IMG}" 
 	docker build -t ${IMG} .
 	docker tag ${IMG} ${LATEST}
 
-push:
+push-image:
 	@echo "Pushing ${NAME}"
+	@echo "${DOCKER_PASS}" | docker login --username ${DOCKER_USER} --password-stdin
 	docker push ${NAME}
  
-login:
-	@echo "${DOCKER_PASS}" | docker login --username ${DOCKER_USER} --password-stdin
+
 

@@ -2,7 +2,7 @@
 version: 2.1
 
 jobs:
-  build:
+  test-code:
     docker:
       - image: python:3.7.3-stretch
 
@@ -24,9 +24,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             make install
-            # Install hadolint
-            #wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            #chmod +x /bin/hadolint
+
       - save_cache:
           paths:
             - ./venv
@@ -37,9 +35,35 @@ jobs:
           name: run lint
           command: |
             . venv/bin/activate
-            make lint 
+            make lint
+
+  build-image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            make build-image
+
+  publish-image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            make push-image
 
 workflows:
   myworkflow:
     jobs:
-      - build
+      - test-code
+      - build-image:
+          requires:
+            - test-code
+      - publish-image:
+          requires:
+            - build-image
