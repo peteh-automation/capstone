@@ -92,18 +92,24 @@ jobs:
         - aws-eks/update-kubeconfig-with-authenticator:
             cluster-name: << parameters.cluster-name >>
         - run:
+            command: aws sts get-caller-identity
+            name: Who am I
+        - run:
             command: kubectl get services
             name: Test cluster
 
 workflows:
   myworkflow:
     jobs:
-      - test-code
+      - test-cluster:
+          cluster-name: capstone-eksctl
+      - test-code:
+          requires:
+            - test-cluster
       - build-image:
           requires:
             - test-code
       - publish-image:
           requires:
             - build-image
-      - test-cluster:
-          cluster-name: capstone-eksctl
+
