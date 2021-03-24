@@ -86,7 +86,7 @@ jobs:
         cluster-name:
           description: 
             Name of the EKS cluster
-        type: string
+          type: string
       steps:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
