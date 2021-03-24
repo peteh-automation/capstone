@@ -87,10 +87,15 @@ jobs:
           description: 
             Name of the EKS cluster
           type: string
+        role-arn:
+          description:
+            IAM Role ARN
+          type: string
       steps:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
             cluster-name: << parameters.cluster-name >>
+            cluster-authentication-role-arn: << parameters.role-arn >>
         - run:
             command: aws sts get-caller-identity
             name: Who am I
@@ -103,6 +108,7 @@ workflows:
     jobs:
       - test-cluster:
           cluster-name: capstone-eksctl
+          cluster-authentication-role-arn: arn:aws:sts::509331676020:assumed-role/capstone-admin/i-0fcd6598d4b3e7228
       - test-code:
           requires:
             - test-cluster
