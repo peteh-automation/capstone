@@ -87,7 +87,7 @@ jobs:
           description: 
             Name of the EKS cluster
           type: string
-        role-arn:
+        cluster-authentication-role-arn:
           description:
             IAM Role ARN
           type: string
@@ -95,7 +95,7 @@ jobs:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
             cluster-name: << parameters.cluster-name >>
-            cluster-authentication-role-arn: << parameters.role-arn >>
+            cluster-authentication-role-arn: << parameters.cluster-authentication-role-arn >>
         - run:
             command: aws sts get-caller-identity
             name: Who am I
