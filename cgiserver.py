@@ -10,8 +10,6 @@ be get-hostname
 import os
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
-  BAD_INDENT = 1
-
 # Make sure the server is created at current directory
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
