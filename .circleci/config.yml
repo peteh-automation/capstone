@@ -118,6 +118,9 @@ jobs:
             resource-name: << parameters.deployment-name >>
             record: true
             show-kubectl-command: true
+        - kubernetes/get-rollout-status:
+            resource-name: << parameters.deployment-name >>
+            watch-rollout-status: true
 
 workflows:
   myworkflow:
