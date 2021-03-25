@@ -107,7 +107,6 @@ jobs:
             command: kubectl get services
             name: Test cluster
         - kubernetes/update-container-image:
-            cluster-name: << parameters.cluster-name >>
             container-image-updates: << parameters.container-image >>
             record: true
             show-kubectl-command: true
