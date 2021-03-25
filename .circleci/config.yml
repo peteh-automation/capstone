@@ -108,7 +108,7 @@ workflows:
     jobs:
       - test-cluster:
           cluster-name: capstone-eksctl
-          cluster-authentication-role-arn: arn:aws:sts::509331676020:assumed-role/capstone-admin/i-0fcd6598d4b3e7228
+          cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
       - test-code:
           requires:
             - test-cluster
