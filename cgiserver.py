@@ -10,6 +10,8 @@ be get-hostname
 import os
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
+DELIBERATE ERROR TO CHECK IF LINT WORKS!
+
 # Make sure the server is created at current directory
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
@@ -24,5 +26,3 @@ try:
     server_object.serve_forever()
 except KeyboardInterrupt:
     print("\nThe server is shut down")
-
-DELIBERATE ERROR TO CHECK IF LINT WORKS!
