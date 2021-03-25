@@ -91,6 +91,10 @@ jobs:
           description:
             IAM Role ARN
           type: string
+        container-image:
+          description:
+            Container Image
+          type: string
       steps:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
@@ -102,6 +106,11 @@ jobs:
         - run:
             command: kubectl get services
             name: Test cluster
+        - kubernetes/update-container-image:
+            cluster-name: << parameters.cluster-name >>
+            container-image-updates: << parameters.container-image >>
+            record: true
+            show-kubectl-command: true
 
 workflows:
   myworkflow:
@@ -113,15 +122,9 @@ workflows:
       - publish-image:
           requires:
             - build-image
-      - test-cluster:
+      - deploy-image:
           cluster-name: capstone-eksctl
           cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
+          container-image: capstone=peterheybrock/capstone:latest
           requires:
             - publish-image
-      - aws-eks/update-container-image:
-          cluster-name: capstone-eksctl
-          container-image-updates: capstone=peterheybrock/capstone:latest
-          record: true
-          show-kubectl-command: true
-          requires:
-            - test-cluster
