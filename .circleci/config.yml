@@ -115,7 +115,7 @@ jobs:
             name: Test cluster
         - kubernetes/update-container-image:
             container-image-updates: << parameters.container-image >>
-            resource: << parameters.deployment-name >>
+            resource-name: << parameters.deployment-name >>
             record: true
             show-kubectl-command: true
 
