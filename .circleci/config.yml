@@ -103,6 +103,7 @@ jobs:
           type: string
 
       steps:
+        - setup_remote_docker
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
             cluster-name: << parameters.cluster-name >>
@@ -115,7 +116,6 @@ jobs:
               kubectl get services
               kubectl get deployments
             name: Test cluster
-        - setup_remote_docker
         - kubernetes/update-container-image:
             container-image-updates: << parameters.container-image >>
             resource-name: << parameters.deployment-name >>
@@ -139,6 +139,6 @@ workflows:
           cluster-name: capstone-eksctl
           cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
           deployment-name: deployment/capstone-deployment
-          container-image: capstone=peterheybrock/capstone:${CIRCLE_BUILD_NUM}
+          container-image: capstone=docker.io/peterheybrock/capstone:${CIRCLE_BUILD_NUM}
           requires:
             - publish-image
