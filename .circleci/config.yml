@@ -143,6 +143,6 @@ workflows:
           cluster-name: capstone-eksctl
           cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
           deployment-name: deployment/capstone-deployment
-          container-image: capstone=docker.io/peterheybrock/capstone:${CIRCLE_PREVIOUS_BUILD_NUM}
+          container-image: capstone=peterheybrock/capstone:${CIRCLE_PREVIOUS_BUILD_NUM}
           requires:
             - publish-image
