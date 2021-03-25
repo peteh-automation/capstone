@@ -115,6 +115,7 @@ jobs:
               kubectl get services
               kubectl get deployments
             name: Test cluster
+        - setup_remote_docker
         - kubernetes/update-container-image:
             container-image-updates: << parameters.container-image >>
             resource-name: << parameters.deployment-name >>
