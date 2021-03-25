@@ -6,7 +6,7 @@ metadata:
   name: capstone-eksctl
   # region: ${AWS_REGION}
   region: eu-west-2
-  version: "1.17"
+  version: "1.19"
 
 # availabilityZones: ["${AZS[0]}", "${AZS[1]}", "${AZS[2]}"]
 availabilityZones: ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
