@@ -80,7 +80,7 @@ jobs:
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
             docker push $IMAGE_NAME:latest
 
-  test-cluster:
+  deploy-image:
       executor: aws-eks/python3
       parameters:
         cluster-name:
@@ -90,6 +90,10 @@ jobs:
         cluster-authentication-role-arn:
           description:
             IAM Role ARN
+          type: string
+        container-image:
+          description:
+            Container Image
           type: string
       steps:
         - kubernetes/install
@@ -102,20 +106,26 @@ jobs:
         - run:
             command: kubectl get services
             name: Test cluster
+        - aws-eks/update-container-image:
+            cluster-name: << parameters.cluster-name >>
+            container-image-updates: << parameters.container-image >>
+            record: true
+            show-kubectl-command: true
 
 workflows:
   myworkflow:
     jobs:
-      - test-cluster:
-          cluster-name: capstone-eksctl
-          cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
-      - test-code:
-          requires:
-            - test-cluster
+      - test-code
       - build-image:
           requires:
             - test-code
       - publish-image:
           requires:
             - build-image
+      - deploy-image:
+          cluster-name: capstone-eksctl
+          cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
+          container-image: capstone=peterheybrock/capstone:latest
+          requires:
+            - publish-image
 
