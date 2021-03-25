@@ -1,5 +1,6 @@
 # capstone project
 
+Overview:
 The project deploys a tiny app: cgiserver.py (server that can run any
   of the scripts in the cgi-bin subdirectoy directory) to the following
   runtime environments:
@@ -7,7 +8,20 @@ The project deploys a tiny app: cgiserver.py (server that can run any
   - a minikube kubernetes cluster (using Docker Desktop)
   - an AWS EKS kubernetes cluster
 
-There are various helper scripts:
+ An example use would be to run:
+  local:
+    http://localhost:8081/cgi-bin/get-info
+  EKS cluster:
+    http://a130af0e261cb4cad909bbd1d02d74d5-446101963.eu-west-2.elb.amazonaws.com:8000/cgi-bin/get-info
+  In both cases they return details about the runtime host, IP address, userId etc.
+  When running in a cluster, it's a useful way to confirm that requests are being directed to each of the 
+  containers.
+
+Repositories:
+All source code is stored in GitHub @ https://github.com/peteh-automation/capstone
+Docker images are stored in Docker Hub @ https://hub.docker.com/repository/docker/peterheybrock/capstone
+
+Helper scripts:
 - Makefile & local/run_docker.sh that builds & tests the image locally
 - minikube/run_kubernetes that tests the image in a minikube cluster
 - eks/create_cluster.sh that sets up the cluster infrastructure using
@@ -16,7 +30,7 @@ There are various helper scripts:
             /deploy_lb.sh
             /delete_app.sh
             /delete_lb.sh
-    that create and tear down the pods and the load balancer
+    that create and tear down the pods/containers and the load balancer
 
 Configuration files:
 - .circleci/config.yml defines a CicleCI CI/CD pipeline that does
@@ -34,4 +48,3 @@ N.B. I created the AWS EKS cluster using the AWS IAM role capstone-admin
 and operated the cluster e.g. updating the deployment image, using 
 AWS IAM user capstone, which had permissions to assume the capstone-admin
 role
-  

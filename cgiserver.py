@@ -24,3 +24,5 @@ try:
     server_object.serve_forever()
 except KeyboardInterrupt:
     print("\nThe server is shut down")
+
+DELIBERATE ERROR TO CHECK IF LINT WORKS!
