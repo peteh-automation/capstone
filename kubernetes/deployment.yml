@@ -5,7 +5,12 @@ metadata:
   labels:
     app: capstone
 spec:
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
   selector:
     matchLabels:
       app: capstone
@@ -20,3 +25,9 @@ spec:
         imagePullPolicy: Always
         ports:
          - containerPort: 8081
+        readinessProbe:
+          httpGet:
+            path: /cgi-bin/get-info
+            port: 8081
+          periodSeconds: 5
+          successThreshold: 5
