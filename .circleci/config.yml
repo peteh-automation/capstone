@@ -95,6 +95,11 @@ jobs:
           description:
             Container Image
           type: string
+        deployment-name:
+          description:
+            Deployment name
+          type: string
+
       steps:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
@@ -104,10 +109,13 @@ jobs:
             command: aws sts get-caller-identity
             name: Who am I
         - run:
-            command: kubectl get services
+            command: |
+              kubectl get services
+              kubectl get deployments
             name: Test cluster
         - kubernetes/update-container-image:
             container-image-updates: << parameters.container-image >>
+            resource: << parameters.deployment-name >>
             record: true
             show-kubectl-command: true
 
@@ -124,6 +132,7 @@ workflows:
       - deploy-image:
           cluster-name: capstone-eksctl
           cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
+          deployment-name: deployment/capstone-deployment
           container-image: capstone=peterheybrock/capstone:latest
           requires:
             - publish-image
