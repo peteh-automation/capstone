@@ -116,9 +116,6 @@ jobs:
             command: |
               kubectl get services
               kubectl get deployments
-        - run:
-            name: Pull docker image locally        
-            command: docker pull peterheybrock/capstone:${CIRCLE_PREVIOUS_BUILD_NUM}
         - kubernetes/update-container-image:
             container-image-updates: << parameters.container-image >>
             resource-name: << parameters.deployment-name >>
@@ -136,9 +133,13 @@ workflows:
           requires:
             - test-code
       - publish-image:
+          # assigns image tag = CIRCLE_BUILD_NUM (which is actually the CircleCI unique job id)
           requires:
             - build-image
       - deploy-image:
+          # gets the image tag = CIRCLE_PREVIOUS_BUILD_NUM (i.e. previous job)
+          # relies on this job running immeadiately after the publish job
+          # possibly safer to store the tag using a safer mechanism
           cluster-name: capstone-eksctl
           cluster-authentication-role-arn: arn:aws:iam::509331676020:role/capstone-admin
           deployment-name: deployment/capstone-deployment

@@ -25,9 +25,3 @@ spec:
         imagePullPolicy: Always
         ports:
          - containerPort: 8081
-        #readinessProbe:
-        #  httpGet:
-        #    path: /cgi-bin/get-info
-        #    port: 8081
-        #  periodSeconds: 5
-        #  successThreshold: 5
