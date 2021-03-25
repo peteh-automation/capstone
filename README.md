@@ -14,8 +14,8 @@ The project deploys a tiny app: cgiserver.py (server that can run any
   EKS cluster:
     http://a130af0e261cb4cad909bbd1d02d74d5-446101963.eu-west-2.elb.amazonaws.com:8000/cgi-bin/get-info
   In both cases they return details about the runtime host, IP address, userId etc.
-  When running in a cluster, it's a useful way to confirm that requests are being directed to each of the 
-  containers.
+  When running in a cluster, just keep refreshing URL and it's a useful way to confirm that requests are 
+  being directed to each of the containers.
 
 Repositories:
 All source code is stored in GitHub @ https://github.com/peteh-automation/capstone
@@ -48,3 +48,7 @@ N.B. I created the AWS EKS cluster using the AWS IAM role capstone-admin
 and operated the cluster e.g. updating the deployment image, using 
 AWS IAM user capstone, which had permissions to assume the capstone-admin
 role
+
+Included screenshots:
+- lint-failure.jpg & lint-success.jpg
+- rolling-update.jpg
