@@ -52,3 +52,4 @@ role
 Included screenshots:
 - lint-failure.jpg & lint-success.jpg
 - rolling-update.jpg
+- pipeline-success.jpg
